@@ -1,0 +1,11 @@
+{
+    "name": "connect-crypto",    
+    "main": "index.js",
+    "version": "0.0.1",
+    "devDependencies": {
+        "vows": "*"
+    },
+    "engine": {
+        "node": ">=0.8"
+    }
+}
