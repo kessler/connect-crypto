@@ -1,6 +1,7 @@
 connect crypto utils
 ====================
 
+Still bugged! don't use!
 
 ### Install ###
 
@@ -10,3 +11,6 @@ connect crypto utils
 
 ### query decryptor ###
 
+```
+	
+```
