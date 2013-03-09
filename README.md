@@ -50,4 +50,4 @@ connect()
 	.use(connect.query())		
 	.use(queryDecryptor('p', mypassword, options));
 ```
-when using the options object, one may specify only a subset of them
+when using the options object, one may specify only a subset of the above options
