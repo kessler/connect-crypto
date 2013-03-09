@@ -28,7 +28,9 @@ server.on('listening', function() {
 	
 	console.log('server is listening');
 	
+	//
 	// client simulation
+	//
 	var cipher = crypto.createCipher('aes192', password);
 
 	var encryptedData = cipher.update(decryptedData, 'ascii', 'base64');
@@ -36,10 +38,11 @@ server.on('listening', function() {
 	encryptedData += cipher.final('base64');
 	
 	var url = 'http://localhost:3000/foo?p=' + encodeURIComponent( encryptedData );
-	console.log('client sending this data ' + encodeURIComponent( encryptedData) );
+	
+	console.log('client requesting url ' + url);
 
 	http.get(url, function(response) {
-		console.log(response.statusCode);
+		
 		if (response.statusCode === 200)
 			console.log('ALL IS WELL!!')
 		else
@@ -48,6 +51,8 @@ server.on('listening', function() {
 		server.close();
 		process.exit(0);
 	});	
-
+	//
+	// end client simulation
+	//
 });
 
