@@ -25,30 +25,30 @@ exports.queryDecryptor = function(paramOrParams, password, options) {
 	options.algorithm = options.algorithm || 'aes192';
 	options.debug = options.debug || false;
 	options.decryptedDataEncoding = options.decryptedDataEncoding || 'ascii';
-	options.encryptedDataEncoding = options.encryptedDataEncoding || 'hex';
+	options.encryptedDataEncoding = options.encryptedDataEncoding || 'base64';
 	
 	if (options.debug)
 		console.log('query decipherer options: %s', $u.inspect(options));
 
 	return function(request, response, next) {
 
-		if (request.query) {
+		if (typeof(request.query) !== 'undefined') {
 			
 			for (var i = 0; i < params.length; i++) {
 				
 				var param = params[i];
 				var cipheredValue = request.query[param];
-
+				
 				if (cipheredValue) {
 					
 					var decipher = crypto.createDecipher(options.algorithm, password)										
-					decipher.update(cipheredValue, options.encryptedDataEncoding);
-				
-					try {						
-						request.query[param] = decipher.final(options.decryptedDataEncoding);						
+					var result = decipher.update(decodeURIComponent(cipheredValue), options.encryptedDataEncoding, options.decryptedDataEncoding);
+					
+					try {												
+						request.query[param] = result + decipher.final(options.decryptedDataEncoding);						
 					} catch (e) {
-						if (options.debug)
-							throw e;
+						if (options.debug) 							
+							throw e;						
 					}
 				}
 			}

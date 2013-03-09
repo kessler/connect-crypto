@@ -6,9 +6,9 @@ var queryDecryptor = require('../index').queryDecryptor;
 
 function encrypt(data) {
 	var cipher = crypto.createCipher('aes192', '123');
-	cipher.update(data, 'ascii');
-
-	return cipher.final('base64');
+	var zz = cipher.update(data, 'ascii', 'base64');
+	
+	return zz + cipher.final('base64');
 }
 
 var suite = vows.describe('query decipherer middleware');
@@ -22,15 +22,15 @@ suite.addBatch({
 
 			var mock = {
 				query: {
-					a: encrypt('foo'),
-					b: encrypt('bar')
+					a: encrypt('foo 123987 1!@# )()(!@# @#)@()@ #()# @'),
+					b: encrypt('bar 92929299 109123 0ojkasdmnka;f !#${"!{!{2')
 				}
 			}
 			
 			topic(mock, null, function() {});
-
-			assert.strictEqual('foo', mock.query.a);
-			assert.strictEqual('bar', mock.query.b);
+			
+			assert.strictEqual(mock.query.a, 'foo 123987 1!@# )()(!@# @#)@()@ #()# @');
+			assert.strictEqual(mock.query.b, 'bar 92929299 109123 0ojkasdmnka;f !#${"!{!{2');
 		}
 	}	
 });
