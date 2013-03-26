@@ -18,7 +18,7 @@ suite.addBatch({
 		topic: function() {
 			return queryDecryptor(['a', 'b'], '123', {debug:true});
 		},		
-		'yet another useless label': function(topic) {
+		'test': function(topic) {
 
 			var mock = {
 				query: {
@@ -32,7 +32,24 @@ suite.addBatch({
 			assert.strictEqual(mock.query.a, 'foo 123987 1!@# )()(!@# @#)@()@ #()# @');
 			assert.strictEqual(mock.query.b, 'bar 92929299 109123 0ojkasdmnka;f !#${"!{!{2');
 		}
-	}	
+	},
+	'parse json': {
+		topic: function() {
+			return queryDecryptor(['a', 'b'], '123', {debug:true, parseJson:true});
+		},		
+		'test': function(topic) {
+
+			var mock = {
+				query: {
+					a: encrypt('{ "x": 1 }')
+				}
+			}
+			
+			topic(mock, null, function() {});
+				
+			assert.strictEqual(mock.query.a.x, 1);			
+		}	
+	}
 });
 
 suite.export(module);

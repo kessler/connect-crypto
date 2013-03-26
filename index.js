@@ -13,6 +13,9 @@ var $u = require('util');
 														the encyption process - defaults to 'ascii'
 
 								encryptedDataEncoding: 	encoding used for encrypted data - defaults to 'base64'
+
+								parseJson: 				in addition to decryption, also pass the parsed value through JSON.parse() -
+														defaults to false 
 */
 exports.queryDecryptor = function(paramOrParams, password, options) {
 	if (!password)
@@ -26,7 +29,8 @@ exports.queryDecryptor = function(paramOrParams, password, options) {
 	options.debug = options.debug || false;
 	options.decryptedDataEncoding = options.decryptedDataEncoding || 'ascii';
 	options.encryptedDataEncoding = options.encryptedDataEncoding || 'base64';
-	
+	options.parseJson = options.parseJson || false;
+
 	if (options.debug)
 		console.log('query decipherer options: %s', $u.inspect(options));
 
@@ -46,6 +50,8 @@ exports.queryDecryptor = function(paramOrParams, password, options) {
 					
 					try {												
 						request.query[param] = result + decipher.final(options.decryptedDataEncoding);						
+						if (options.parseJson)
+							request.query[param] = JSON.parse(request.query[param]);
 					} catch (e) {
 						if (options.debug) 							
 							throw e;						
