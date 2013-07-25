@@ -46,15 +46,19 @@ exports.queryDecryptor = function(paramOrParams, password, options) {
 				if (cipheredValue) {
 					
 					var decipher = crypto.createDecipher(options.algorithm, password)										
-					var result = decipher.update(decodeURIComponent(cipheredValue), options.encryptedDataEncoding, options.decryptedDataEncoding);
-					
+
 					try {												
+						var result = decipher.update(decodeURIComponent(cipheredValue), options.encryptedDataEncoding, options.decryptedDataEncoding);
+					
 						request.query[param] = result + decipher.final(options.decryptedDataEncoding);						
 						if (options.parseJson)
 							request.query[param] = JSON.parse(request.query[param]);
 					} catch (e) {
 						if (options.debug) 							
-							throw e;						
+							throw e;		
+
+						if (options.log)
+							options.log(e);
 					}
 				}
 			}

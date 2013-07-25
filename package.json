@@ -2,7 +2,7 @@
     "name": "connect-crypto",    
     "main": "index.js",
     "description": "middlewares and other connect and crypto related odds and ends",
-    "version": "0.0.6",
+    "version": "0.0.7",
     "keywords": ["connect", "crypto", "middleware"],
     "devDependencies": {
         "vows": "*",
