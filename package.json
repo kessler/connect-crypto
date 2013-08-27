@@ -1,5 +1,5 @@
 {
-    "name": "connect-crypto",    
+    "name": "connect-crypto",
     "main": "index.js",
     "description": "middlewares and other connect and crypto related odds and ends",
     "version": "0.0.7",
@@ -10,7 +10,7 @@
     },
     "repository": {
 	    "type": "git",
-	    "url": "https://github.com/kessler-y/connect-crypto.git"
+	    "url": "https://github.com/kessler/connect-crypto.git"
 	},
     "author": {
         "name": "Yaniv Kessler"
@@ -18,9 +18,9 @@
     "licenses": [
         {
         "type": "MIT",
-        "url": "https://raw.github.com/kessler-y/connect-crypto/master/LICENSE"
+        "url": "https://raw.github.com/kessler/connect-crypto/master/LICENSE"
         }
-    ],    
+    ],
     "engine": {
         "node": ">=0.8"
     }
